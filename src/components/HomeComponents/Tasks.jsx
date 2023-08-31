@@ -8,6 +8,7 @@ import { formatDate } from "../../helpers/formatDate";
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
+    console.log('получаю сокеты');
     const socket = new WebSocket.w3cwebsocket("wss://test.relabs.ru/event");
 
     socket.onopen = () => {

@@ -20,6 +20,7 @@ export default function Users() {
     }
   }
   useEffect(() => {
+    console.log('получаю юзеров');
     fetchUsers();
   }, []);
 

@@ -11,10 +11,12 @@ const Auth = () => {
   const [isValid, setIsValid] = useState(true);
 
   const handleEmailChange = (event) => {
+    setIsValid(true)
     setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
+    setIsValid(true)
     setPassword(event.target.value);
   };
 
@@ -23,10 +25,9 @@ const Auth = () => {
     const passwordPattern = /^(?=.*[A-Z]).{8,}$/;
 
     const isEmailValid = emailPattern.test(email);
-    const isPasswordValid = passwordPattern.test(password);
+    const isPasswordValid = passwordPattern.test(password.trim());
 
     setIsValid(isEmailValid && isPasswordValid);
-
     return isEmailValid && isPasswordValid;
   };
 
@@ -36,7 +37,7 @@ const Auth = () => {
       setTimeout(() => {
         setIsLoading(false);
         navigate("/");
-      }, 2000);
+      }, 12000);
     }
   };
 
@@ -62,6 +63,7 @@ const Auth = () => {
             variant="outlined"
             value={email}
             onChange={handleEmailChange}
+            disabled={isLoading}
           />
           {!isValid && (
             <p style={{ fontSize: "10px", color: "red" }}>Некорректный адрес электронной почты</p>
@@ -76,6 +78,7 @@ const Auth = () => {
             variant="filled"
             value={password}
             onChange={handlePasswordChange}
+            disabled={isLoading}
           />
           {!isValid && (
             <p style={{ fontSize: "10px", color: "red" }}>
