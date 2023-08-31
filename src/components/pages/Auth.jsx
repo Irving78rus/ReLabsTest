@@ -30,7 +30,7 @@ const Auth = () => {
     const passwordPattern = /^(?=.*[A-Z]).{8,}$/;
 
     const isEmailValid = emailPattern.test(email);
-    const isPasswordValid = passwordPattern.test(password.trim());
+    const isPasswordValid = passwordPattern.test(password);
 
     setIsValidPassword(isPasswordValid);
     setIsValidEmail(isEmailValid);
