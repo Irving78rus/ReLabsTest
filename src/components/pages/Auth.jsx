@@ -8,15 +8,20 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isValid, setIsValid] = useState(true);
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(true);
 
   const handleEmailChange = (event) => {
-    setIsValid(true)
+    setIsValidEmail(true);
     setEmail(event.target.value);
   };
-
+  const handleKeyPress = (event) => {
+    if (event.key === " ") {
+      event.preventDefault();
+    }
+  };
   const handlePasswordChange = (event) => {
-    setIsValid(true)
+    setIsValidPassword(true);
     setPassword(event.target.value);
   };
 
@@ -27,7 +32,8 @@ const Auth = () => {
     const isEmailValid = emailPattern.test(email);
     const isPasswordValid = passwordPattern.test(password.trim());
 
-    setIsValid(isEmailValid && isPasswordValid);
+    setIsValidPassword(isPasswordValid);
+    setIsValidEmail(isEmailValid);
     return isEmailValid && isPasswordValid;
   };
 
@@ -65,7 +71,7 @@ const Auth = () => {
             onChange={handleEmailChange}
             disabled={isLoading}
           />
-          {!isValid && (
+          {!isValidEmail && (
             <p style={{ fontSize: "10px", color: "red" }}>Некорректный адрес электронной почты</p>
           )}
         </div>
@@ -79,8 +85,9 @@ const Auth = () => {
             value={password}
             onChange={handlePasswordChange}
             disabled={isLoading}
+            onKeyPress={handleKeyPress}
           />
-          {!isValid && (
+          {!isValidPassword && (
             <p style={{ fontSize: "10px", color: "red" }}>
               Пароль минимум 8 символов, минимум одна заглавная буква
             </p>
